@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
-    <meta charset="UTF-8">
-    <title>Sign Up Confirmation</title>
+    <meta charset="utf-8">
 </head>
 <body>
-    <h1>Thanks for signing up!</h1>
+<h2>Verify Your Email Address</h2>
 
-    <p>
-We just need you to <a href='{{ url("register/confirm/{$user->token}") }}'>confirm your email address</a> real quick!
-    </p>
+<div>
+    Thanks for creating an account with the verification demo app.
+    Please follow the link below to verify your email address
+    {{ URL::to('register/verify/' . $confirmation_code) }}.<br/>
+
+</div>
+
 </body>
 </html>
