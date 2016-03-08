@@ -63,10 +63,17 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        $confirmation_code = str_random(30);
+        /*Mail::send('email.verify', $confirmation_code, function($message) use ($data){
+            $message->to($data['email'], $data['name'])
+                ->subject('Verify your email address');
+        });*/
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'confirmed_code'=> $confirmation_code
+
         ]);
     }
 }
