@@ -23,11 +23,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
+    #region Method to charge all users
     public function showUsersName(){
         $users = DB::table('users')
                     ->select('name','email')
                     ->get();
         return $users;
     }
+    #endregion
+
 }

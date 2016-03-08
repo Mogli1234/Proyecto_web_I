@@ -1,27 +1,41 @@
 @extends('layouts.app')
     @section('content')
-        <form  class="form-horizontal" role="form" method="POST" action="/user">
-            <h1>Register Form</h1>
-            <div>
-                <label>Nombre Completo</label>
-                <input type="text" class="form-control required" name="name"/>
-            </div>
-            <div>
-                <label>Correo Electronico</label>
-                <input type="email" class="form-control required" placeholder="example@gmail.com" name="email">
-            </div>
-            <div>
-                <label>Contraseña</label>
-                <input type="password" class="form-control required" name="password">
-            </div>
-            <div>
-                <div class="checkbox" >
-                    <label><input type="checkbox"  name="rol">Administrador</label>
+        <form  class="form-horizontal" role="form" method="POST" action="/E-mails">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <h1>Mail Form</h1>
+            @if(session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
                 </div>
+            @endif
+            @if($errors->any())
+                <div class="alert alert-danger">
+                   {{$errors->first()}}
+                </div>
+            @endif
+            <div>
+                <label>To:</label>
+                <select name="to_user" class="form-control" id="sel1">
+                    @foreach ($users as $data)
+                        <option value="{{$data->email}}">{{$data->name}}</option>
+                    @endforeach
+                </select>
             </div>
             <div>
-                <button type="submit" class="btn btn-default">Crear Usuario</button>
-                <a href="/user"><input type="button" class="btn btn-default" value="Cancelar"></a>
+                <label>From:</label>
+                <input type="text" class="form-control required" name="log_mail" value="{{Auth::user()->email}}">
+            </div>
+            <div>
+                <label>Subject:</label>
+                <input type="text" class="form-control required" name="subject">
+            </div>
+            <div>
+                <label>Message:</label>
+                <textarea name="message" placeholder="Put your message" class="form-control required"></textarea>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-default">Save Mail</button>
+                <a href="/user"><input type="button" class="btn btn-default" value="Cancel"></a>
             </div>
             <div class="clearfix"></div>
         </form>
