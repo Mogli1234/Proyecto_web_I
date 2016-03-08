@@ -18,7 +18,10 @@ class CreateUserMailTable extends Migration
                 $table->integer('log_user_id');
                 $table->integer('to_user_id');
 
-                $table->foreign('mail_id')->references('id')->on('');
+                $table->foreign('mail_id')->references('id')->on('mails');
+                $table->foreign('log_user_id')->references('id')->on('users');
+                $table->foreign('to_user_id')->references('id')->on('users');
+
         });
     }
 
@@ -29,6 +32,6 @@ class CreateUserMailTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('mail_user');
     }
 }
