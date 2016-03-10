@@ -25,7 +25,9 @@ class MailController extends Controller
      */
     public function index()
     {
-        //
+        $draftedMails = new mail();
+        $draftedMails = $draftedMails->chargeDraftedMails();
+        return view('E-mails.index')->with('drafted',$draftedMails);
     }
 
     /**
@@ -54,7 +56,6 @@ class MailController extends Controller
             $users = new User();
             $users = $users->showUsersName();
             if($new_mail->createEmail($request->all())){
-
                 return redirect('E-mails/create')->with(['status'=>'Congratulations your maill has been stored!','users'=>$users]);
             }
         }catch (Exception $e){
@@ -81,7 +82,11 @@ class MailController extends Controller
      */
     public function edit($id)
     {
-        //
+        $mails = new mail();
+        $mails = $mails->showMailInformation($id);
+        $users = new User();
+        $users = $users->showUsersName();
+        return view('E-mails.edit')->with(['edited_mail'=>$mails,'users'=>$users]);
     }
 
     /**
@@ -93,7 +98,16 @@ class MailController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $new_mail = new mail();
+            $users = new User();
+            $users = $users->showUsersName();
+            if($new_mail->editSpecificMail($request->all(),$id)){
+                return redirect('E-mails/edit')->with(['status'=>'Congratulations your maill has been updated!','users'=>$users]);
+            }
+        }catch (Exception $e){
+            return back()->with(['errors'=>$e->getMessage(),'users'=>$users]);
+        }
     }
 
     /**
@@ -104,6 +118,32 @@ class MailController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $mail = new mail();
+        $draftedMails = new mail();
+        $draftedMails = $draftedMails->chargeDraftedMails();
+        try{
+            if($mail->deleteMAil($id)){
+                return redirect('E-mails')->with('drafted',$draftedMails);
+            }
+        }catch (Exception $e){
+            return back()->with(['errors'=>$e->getMessage(),'drafted'=>$draftedMails]);
+        }
+
     }
+
+    //Own function
+    #region Method to add draft Mail to send Mail
+    public function addToSendMail($id){
+        $mail = new mail();
+        $draftedMails = new mail();
+        $draftedMails = $draftedMails->chargeDraftedMails();
+        try{
+            if($mail->change($id)){
+                return back()->with('drafted',$draftedMails);
+            }
+        }catch (Exception $e){
+            return back()->with(['errors'=>$e->getMessage(),'drafted'=>$draftedMails]);
+        }
+    }
+    #endregion
 }
