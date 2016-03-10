@@ -70,7 +70,7 @@
                                     </li>
                                     <li><a><i class="fa fa-desktop"></i>Output<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu" style="display: none">
-                                            <li><a href="/E-mails/outputs"></a></li>
+                                            <li><a href="/Output">See send Mails</a></li>
                                         </ul>
                                     </li>
                                     <li><a><i class="fa fa-table"></i>Evoys<span class="fa fa-chevron-down"></span></a>

@@ -35,7 +35,7 @@
             </div>
             <div>
                 <button type="submit" class="btn btn-default">Save Mail</button>
-                <a href="/user"><input type="button" class="btn btn-default" value="Cancel"></a>
+                <a href="/E-mails"><input type="button" class="btn btn-default" value="Cancel"></a>
             </div>
             <div class="clearfix"></div>
         </form>

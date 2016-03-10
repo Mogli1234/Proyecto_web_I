@@ -14,7 +14,6 @@ class Mail extends Model
 
     #region Method to add email content to the DB
     public function createEmail($data){
-
             $mail = DB::table('mails')
                 ->insert([
                     'to'=> $data['to_user'],
@@ -22,7 +21,7 @@ class Mail extends Model
                     'message'=>$data['message']
                 ]);
 
-            //$this->sendEmail($data);
+            $this->sendEmail($data);
         return $mail;
     }
     #endregion
@@ -83,6 +82,29 @@ class Mail extends Model
                             'message'=>$data['message']
                         ]);
         return $update_mail;
+    }
+    #endregion
+
+    #region Method to change state of specific Mail
+    public function change($id){
+        $mail_state = DB::table('mails')->select('state')->where('id',$id)->get();
+        if($mail_state[0]->state == 'draft'){
+            $mail_state[0]->state = 'send';
+            $changed_mail= DB::table('mails')->where('id',$id)->update(['state'=>$mail_state[0]->state]);
+        }elseif($mail_state[0]->state == 'send'){
+            $mail_state[0]->state = 'sent';
+            $changed_mail= DB::table('mails')->where('id',$id)->update(['state'=>$mail_state[0]->state]);
+        }
+        return $changed_mail;
+    }
+    #endregion
+
+    #region Method to show all sends Mails
+    public function showSendMails(){
+        $sendMails= DB::table('mails')
+                    ->where('state','send')
+                    ->get();
+        return $sendMails;
     }
     #endregion
 }
