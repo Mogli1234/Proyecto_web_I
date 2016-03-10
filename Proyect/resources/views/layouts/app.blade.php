@@ -63,21 +63,19 @@
                                             <li><a href="/E-mails/create">Create Mail</a></li>
                                         </ul>
                                     </li>
-                                    <li><a><i class="fa fa-edit"></i> Billetes <span class="fa fa-chevron-down"></span></a>
-
+                                    <li><a><i class="fa fa-edit"></i>Drafted<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu" style="display: none">
+                                                <li><a href="/E-mails">See draft Mails</a></li>
+                                            </ul>
                                     </li>
-                                    <li><a><i class="fa fa-desktop"></i> Cajero <span class="fa fa-chevron-down"></span></a>
+                                    <li><a><i class="fa fa-desktop"></i>Output<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu" style="display: none">
-
+                                            <li><a href="/E-mails/outputs"></a></li>
                                         </ul>
                                     </li>
-                                    <li><a><i class="fa fa-table"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
+                                    <li><a><i class="fa fa-table"></i>Evoys<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu" style="display: none">
-                                        </ul>
-                                    </li>
-
-                                    <li><a><i class="fa fa-home"></i> Cuenta <span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu" style="display: none">
+                                            <li><a href="/E-mails/envoys"></a></li>
                                         </ul>
                                     </li>
                             </ul>
