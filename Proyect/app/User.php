@@ -32,4 +32,10 @@ class User extends Authenticatable
     }
     #endregion
 
+    #region Method to charge the id from $usermail
+    public function obtainIdUser($userMail){
+        $user = DB::table('users')->where('email',$userMail)->value('id');
+        return $user;
+    }
+    #endregion
 }

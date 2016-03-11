@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,13 +23,16 @@ Route::get('/', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-
+Route::get('/', function () {
+    return view('auth.login');
+});
 Route::group(['middleware' => ['web']], function () {
     //
 });
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
+    Route::get('/','HomeController@index');
     Route::get('/home', 'HomeController@index');
     Route::resource('E-mails','MailController');
     Route::get('/E-mails/{id}/send', 'MailController@addToSendMail');

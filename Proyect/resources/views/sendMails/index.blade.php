@@ -41,7 +41,6 @@
                                             <input type="submit" value="" class="glyphicon glyphicon-trash">
                                         </form>
                                         <a href='/E-mails/{{$key->id}}/edit'><span class="glyphicon glyphicon-pencil"></span></a>
-                                        <a href="/E-mails/{{$key->id}}/send"><span class="glyphicon glyphicon-check"></span></a>
                                     </td>
                                 </tr>
                             @endforeach

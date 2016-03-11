@@ -20,8 +20,9 @@ class Mail extends Model
                     'subject'=>$data['subject'],
                     'message'=>$data['message']
                 ]);
-
-            $this->sendEmail($data);
+            $mail_id = $this->getThelastIdMail($data);
+        dd($mail_id);
+        die;
         return $mail;
     }
     #endregion
@@ -107,4 +108,15 @@ class Mail extends Model
         return $sendMails;
     }
     #endregion
+
+    public function getThelastIdMail($data){
+        $id_mail = DB::table('mails')
+                    ->where([
+                        'to'=>$data['to_user'],
+                        'subject'=>$data['subject'],
+                        'message'=>$data['message']
+                    ])
+                    ->value('id');
+        return $id_mail;
+    }
 }
