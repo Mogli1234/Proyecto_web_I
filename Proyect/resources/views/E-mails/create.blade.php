@@ -24,6 +24,7 @@
             <div>
                 <label>From:</label>
                 <input type="text" class="form-control required" name="log_mail" value="{{Auth::user()->email}}">
+                <input type="hidden" class="form-control required" name="log_user_id" value="{{Auth::user()->id}}">
             </div>
             <div>
                 <label>Subject:</label>

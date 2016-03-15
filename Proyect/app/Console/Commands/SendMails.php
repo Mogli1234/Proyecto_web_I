@@ -4,6 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Mail as mails;
+use Auth;
+use Symfony\Component\DomCrawler\Tests\Field\InputFormFieldTest;
+
 class SendMails extends Command
 {
     /**
@@ -28,7 +31,7 @@ class SendMails extends Command
     public function __construct()
     {
         parent::__construct();
-        $send_mail = new mails();
+
     }
 
     /**
@@ -38,6 +41,15 @@ class SendMails extends Command
      */
     public function handle()
     {
-
+        $mails_object = new mails();
+        $send_mail_list = $mails_object->showSendMails(Auth::user()->id);
+        if(isset($send_mail_list)){
+            foreach($send_mail_list as$data){
+                $mails_object->sendEmail($data);
+                $mails_object->changeState($data->id);
+            }
+        }else{
+            $this->error('You dont have mails to send');
+        }
     }
 }

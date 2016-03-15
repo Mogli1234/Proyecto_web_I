@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Mail as mail;
 use App\User as User;
 use Mockery\CountValidator\Exception;
-
+use Auth;
 class MailController extends Controller
 {
 
@@ -26,7 +26,7 @@ class MailController extends Controller
     public function index()
     {
         $draftedMails = new mail();
-        $draftedMails = $draftedMails->chargeDraftedMails();
+        $draftedMails = $draftedMails->chargeDraftedMails(Auth::user()->id);
         return view('E-mails.index')->with('drafted',$draftedMails);
     }
 
@@ -103,7 +103,7 @@ class MailController extends Controller
             $users = new User();
             $users = $users->showUsersName();
             if($new_mail->editSpecificMail($request->all(),$id)){
-                return redirect('E-mails/edit')->with(['status'=>'Congratulations your maill has been updated!','users'=>$users]);
+                return redirect('/E-mails')->with(['status'=>'Congratulations your maill has been updated!','users'=>$users]);
             }
         }catch (Exception $e){
             return back()->with(['errors'=>$e->getMessage(),'users'=>$users]);
@@ -120,7 +120,7 @@ class MailController extends Controller
     {
         $mail = new mail();
         $draftedMails = new mail();
-        $draftedMails = $draftedMails->chargeDraftedMails();
+        $draftedMails = $draftedMails->chargeDraftedMails(Auth::user()->id);
         try{
             if($mail->deleteMAil($id)){
                 return redirect('E-mails')->with('drafted',$draftedMails);
@@ -136,9 +136,9 @@ class MailController extends Controller
     public function addToSendMail($id){
         $mail = new mail();
         $draftedMails = new mail();
-        $draftedMails = $draftedMails->chargeDraftedMails();
+        $draftedMails = $draftedMails->chargeDraftedMails(Auth::user()->id);
         try{
-            if($mail->change($id)){
+            if($mail->changeState($id)){
                 return back()->with('drafted',$draftedMails);
             }
         }catch (Exception $e){

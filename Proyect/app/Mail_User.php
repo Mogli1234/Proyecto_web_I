@@ -20,4 +20,11 @@ class Mail_User extends Model
                         ]);
         return $add_mail_user;
     }
+
+    public function deleteRecord($id){
+        $record_to_delete= DB::table('mails_users')
+                            ->where('mail_id',$id)
+                            ->delete();
+        return $record_to_delete;
+    }
 }

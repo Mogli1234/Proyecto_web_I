@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Mail as mail;
+use Auth;
 class OuputMailController extends Controller
 {
     /**
@@ -17,7 +18,7 @@ class OuputMailController extends Controller
     public function index()
     {
         $sendMails = new mail();
-        $sendMails = $sendMails->showSendMails();
+        $sendMails = $sendMails->showSendMails(Auth::user()->id);
         return view('sendMails.index')->with('sendsMails',$sendMails);
     }
 
