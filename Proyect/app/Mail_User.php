@@ -4,10 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Mail as mails;
-use App\User as users;
 use DB;
 use Auth;
-use DebugBar\DebugBar as DebugBar;
 class Mail_User extends Model
 {
     protected $fillable=['mail_id','log_user_id',''];

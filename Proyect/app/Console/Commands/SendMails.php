@@ -21,6 +21,7 @@ class SendMails extends Command
      * @var string
      */
     protected $description = 'This command is to send a email for each person';
+    protected $mails_object;
     /**
      * Create a new command instance.
      *
@@ -28,8 +29,8 @@ class SendMails extends Command
      */
     public function __construct()
     {
+        $this->mails_object = new mails();
         parent::__construct();
-
     }
 
     /**
@@ -45,19 +46,21 @@ class SendMails extends Command
     #region Method to send mails
     public function sendMails(){
         try{
-            $mails_object = new mails();
-            $send_mail_list = $mails_object->showSendMails();
+            $send_mail_list = $this->mails_object->showSendMails();
             if($send_mail_list){
-                foreach($send_mail_list as$data){
-                    $mails_object->sendEmail($data);
-                    $mails_object->changeState($data->id);
+                foreach($send_mail_list as $data){
+                    $to_view = array('bodyMessage' => $data->message);
+                    email::send('emails.basicMessage',$to_view,function($message)use($data){
+                        $message->from($data->email,'Bladimir Arroyo');
+                        $message->to($data->to)
+                            ->subject($data->subject);
+                    });
+                    $this->mails_object->changeState($data->id);
                 }
             }
-            $returned= $this->info('All mails have been sent');
         }catch (Exception $e){
-            $returned= $this->error($e->getMessage());
+           $this->error($e->getMessage());
         }
-        return $returned;
     }
     #endregion
 }
