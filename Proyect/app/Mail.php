@@ -36,11 +36,11 @@ class Mail extends Model
     public function sendEmail($data){
 
         try{
-            $to_view = array('bodyMessage' => $data['message']);
+            $to_view = array('bodyMessage' => $data->message);
             $sending = email::send('emails.basicMessage',$to_view,function($message)use($data){
-                $message->from($data['email'],Auth::user()->name);
-                $message->to($data['to'])
-                        ->subject($data['subject']);
+                $message->from($data->email,Auth::user()->name);
+                $message->to($data->to)
+                        ->subject($data->subject);
             });
 
         }catch (Exception $e){
@@ -112,11 +112,11 @@ class Mail extends Model
     #endregion
 
     #region Method to show all sends Mails
-    public function showSendMails($log_id){
+    public function showSendMails(){
         $sendMails=DB::table('mails')
                     ->join('mails_users','mails.id','=','mails_users.mail_id')
                     ->join('users','mails_users.log_user_id','=','users.id')
-                    ->where(['state'=>'send','mails_users.log_user_id'=>$log_id])
+                    ->where(['state'=>'send','mails_users.log_user_id'=>Auth::user()->id])
                     ->select('mails.id','mails.to','mails.subject','mails.message','users.email')
                     ->get();
         return $sendMails;

@@ -37,6 +37,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('E-mails','MailController');
     Route::get('/E-mails/{id}/send', 'MailController@addToSendMail');
     Route::get('/Output','OuputMailController@index');
+    Route::get('/patito','OuputMailController@seeData');
 
 });
 

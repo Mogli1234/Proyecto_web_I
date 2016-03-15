@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Mail as mails;
 use App\User as users;
 use DB;
+use Auth;
+use DebugBar\DebugBar as DebugBar;
 class Mail_User extends Model
 {
     protected $fillable=['mail_id','log_user_id',''];
@@ -27,4 +29,23 @@ class Mail_User extends Model
                             ->delete();
         return $record_to_delete;
     }
+
+    #region Method to send mails
+    public function sendMails(){
+        try{
+            $mails_object = new mails();
+            $send_mail_list = $mails_object->showSendMails();
+            if($send_mail_list){
+                foreach($send_mail_list as $data){
+                     $mails_object->sendEmail($data);
+                    $mails_object->changeState($data->id);
+                }
+                return "holis";
+            }
+
+        }catch (Exception $e){
+            return "error";
+        }
+    }
+    #endregion
 }

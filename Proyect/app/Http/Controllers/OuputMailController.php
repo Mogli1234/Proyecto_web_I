@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Mail as mail;
 use Auth;
+use App\Mail_User as mail_user;
 class OuputMailController extends Controller
 {
     /**
@@ -86,5 +87,12 @@ class OuputMailController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function seeData(){
+        $new_mail = new mail_user();
+        if($new_mail->sendMails()){
+
+        }
     }
 }
