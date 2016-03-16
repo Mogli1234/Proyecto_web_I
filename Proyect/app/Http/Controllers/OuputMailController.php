@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Mail as mail;
+use App\User as User;
 use Auth;
 class OuputMailController extends Controller
 {
@@ -62,7 +63,11 @@ class OuputMailController extends Controller
      */
     public function edit($id)
     {
-        //
+        $mails = new mail();
+        $mails = $mails->showMailInformation($id);
+        $users = new User();
+        $users = $users->showUsersName();
+        return view('sendMails.edit')->with(['edited_mail'=>$mails,'users'=>$users]);
     }
 
     /**
@@ -74,7 +79,16 @@ class OuputMailController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $new_mail = new mail();
+            $users = new User();
+            $users = $users->showUsersName();
+            if($new_mail->editSpecificMail($request->all(),$id)){
+                return redirect('/Output')->with(['status'=>'Congratulations your maill has been updated!','users'=>$users]);
+            }
+        }catch (Exception $e){
+            return back()->with(['errors'=>$e->getMessage(),'users'=>$users]);
+        }
     }
 
     /**
@@ -85,6 +99,15 @@ class OuputMailController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $mail = new mail();
+        $sendMails = new mail();
+        $sendMails = $sendMails->showSendMails(Auth::user()->id);
+        try{
+            if($mail->deleteMAil($id)){
+                return redirect('/Output')->with('sendsMails',$sendMails);
+            }
+        }catch (Exception $e){
+            return back()->with(['errors'=>$e->getMessage(),'sendsMails'=>$sendMails]);
+        }
     }
 }

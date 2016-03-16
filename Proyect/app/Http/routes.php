@@ -26,9 +26,6 @@
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::group(['middleware' => ['web']], function () {
-    //
-});
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
@@ -36,9 +33,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/home', 'HomeController@index');
     Route::resource('E-mails','MailController');
     Route::get('/E-mails/{id}/send', 'MailController@addToSendMail');
-    Route::get('/Output','OuputMailController@index');
-    Route::get('/patito','OuputMailController@seeData');
-
+    Route::resource('/Output','OuputMailController');
+    Route::get('/Envoys','EnvoyController@index');
+    Route::get('/Envoys/{id}','EnvoyController@show');
 });
 
 Route::get('register/verify/{confirmationCode}', [

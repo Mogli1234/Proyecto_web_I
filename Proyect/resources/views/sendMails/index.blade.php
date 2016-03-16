@@ -35,12 +35,12 @@
                                     <td>{{$key->to}}</td>
                                     <td>{{$key->subject}}</td>
                                     <td>{{$key->message}}</td>
-                                    <td><form action="/E-mails/{{$key->id}}" class="pull-right" role="form" method="POST">
+                                    <td><form action="/Output/{{$key->id}}" class="pull-right" role="form" method="POST">
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             <input type="hidden" name="_method" value="DELETE">
                                             <input type="submit" value="" class="glyphicon glyphicon-trash">
                                         </form>
-                                        <a href='/E-mails/{{$key->id}}/edit'><span class="glyphicon glyphicon-pencil"></span></a>
+                                        <a href='/Output/{{$key->id}}/edit'><span class="glyphicon glyphicon-pencil"></span></a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -50,22 +50,6 @@ class Mail extends Model
     }
     #endregion
 
-    #region Method to charge all drafted mails
-    public function chargeDraftedMails($log_id){
-        try{
-            $mails= DB::table('mails')
-                    ->join('mails_users','mails.id','=','mails_users.mail_id')
-                    ->join('users','mails_users.log_user_id','=','users.id')
-                    ->where(['state'=>'draft','mails_users.log_user_id'=>$log_id])
-                    ->select('mails.id','mails.to','mails.subject','mails.message')
-                    ->get();
-        }catch (Exception $e){
-            $mails = $e->getMessage();
-        }
-        return $mails;
-    }
-    #endregion
-
     #region Method to delete Mails
     public function deleteMAil($id){
         $record_detele = new mail_user();
@@ -111,6 +95,22 @@ class Mail extends Model
     }
     #endregion
 
+    #region Method to show all drafted mails
+    public function chargeDraftedMails($log_id){
+        try{
+            $mails= DB::table('mails')
+                ->join('mails_users','mails.id','=','mails_users.mail_id')
+                ->join('users','mails_users.log_user_id','=','users.id')
+                ->where(['state'=>'draft','mails_users.log_user_id'=>$log_id])
+                ->select('mails.id','mails.to','mails.subject','mails.message')
+                ->get();
+        }catch (Exception $e){
+            $mails = $e->getMessage();
+        }
+        return $mails;
+    }
+    #endregion
+
     #region Method to show all sends Mails
     public function showSendMails(){
         $sendMails=DB::table('mails')
@@ -120,6 +120,18 @@ class Mail extends Model
                     ->select('mails.id','mails.to','mails.subject','mails.message','users.email')
                     ->get();
         return $sendMails;
+    }
+    #endregion
+
+    #region Method to show all sents Mails
+    public function showSentMails(){
+        $sentMails=DB::table('mails')
+            ->join('mails_users','mails.id','=','mails_users.mail_id')
+            ->join('users','mails_users.log_user_id','=','users.id')
+            ->where(['state'=>'sent','mails_users.log_user_id'=>Auth::user()->id])
+            ->select('mails.id','mails.to','mails.subject','mails.message','users.email')
+            ->get();
+        return $sentMails;
     }
     #endregion
 
@@ -136,7 +148,7 @@ class Mail extends Model
     }
     #endregion
 
-    #region Method to show all sends Mails
+    #region Method to show all mails to be send
     public function showSendMailsToSend(){
         $sendMails=DB::table('mails')
             ->join('mails_users','mails.id','=','mails_users.mail_id')

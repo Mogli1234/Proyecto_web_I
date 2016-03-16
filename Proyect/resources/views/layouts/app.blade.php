@@ -75,7 +75,7 @@
                                     </li>
                                     <li><a><i class="fa fa-table"></i>Envoys<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu" style="display: none">
-                                            <li><a href="/E-mails/envoys">See envoys mails </a></li>
+                                            <li><a href="/Envoys">See envoys mails </a></li>
                                         </ul>
                                     </li>
                             </ul>

@@ -19,7 +19,7 @@ class SendEmail extends Command
      *
      * @var string
      */
-    protected $description = 'Send all mails from specfic user';
+    protected $description = 'Sends all outstanding post';
 
     /**
      * Create a new command instance.
@@ -40,12 +40,12 @@ class SendEmail extends Command
     {
         $mails_object = new mails();
         $send_mail_list = $mails_object->showSendMailsToSend();//carga los datos de la db
-
         if($send_mail_list !=null){
             foreach($send_mail_list as $data){
                 $mails_object->sendEmail($data);
                 $mails_object->changeState($data->id);//cambia los estados de los correosss
             }
+          $this->info('You send all pendient mails');
         }else{
             $this->error('You dont have mails to send');
         }
