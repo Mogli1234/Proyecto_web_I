@@ -7,6 +7,7 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -29,6 +30,7 @@ class AuthController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
+    protected $redirectpath = '/login';
 
     /**
      * Create a new authentication controller instance.
@@ -64,10 +66,6 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         $confirmation_code = str_random(30);
-        /*Mail::send('email.verify', $confirmation_code, function($message) use ($data){
-            $message->to($data['email'], $data['name'])
-                ->subject('Verify your email address');
-        });*/
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -76,4 +74,18 @@ class AuthController extends Controller
 
         ]);
     }
+
+    public function register(Request $request){
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        $this->create($request->all());
+        return redirect('/login');
+    }
+
 }

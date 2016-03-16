@@ -37,7 +37,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="{{ url('/home') }}" class="site_title"><i class="fa fa-paw"></i> <span>Web Mail</span></a>
+                        <a href="{{ url('/') }}" class="site_title"><i class="fa fa-paw"></i> <span>Web Mail</span></a>
                     </div>
                     <div class="clearfix"></div>
                     <!-- menu prile quick info -->
@@ -60,12 +60,12 @@
                             <ul class="nav side-menu">
                                     <li><a><i class="fa fa-home"></i> Mail<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu" style="display: none">
-                                            <li><a href="/E-mails/create">Create Mail</a></li>
+                                            <li><a href="/E-mails/create">Create mails</a></li>
                                         </ul>
                                     </li>
                                     <li><a><i class="fa fa-edit"></i>Drafted<span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu" style="display: none">
-                                                <li><a href="/E-mails">See draft Mails</a></li>
+                                                <li><a href="/E-mails">See draft mails</a></li>
                                             </ul>
                                     </li>
                                     <li><a><i class="fa fa-desktop"></i>Output<span class="fa fa-chevron-down"></span></a>
@@ -73,9 +73,9 @@
                                             <li><a href="/Output">See send Mails</a></li>
                                         </ul>
                                     </li>
-                                    <li><a><i class="fa fa-table"></i>Evoys<span class="fa fa-chevron-down"></span></a>
+                                    <li><a><i class="fa fa-table"></i>Envoys<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu" style="display: none">
-                                            <li><a href="/E-mails/envoys"></a></li>
+                                            <li><a href="/Envoys">See envoys mails </a></li>
                                         </ul>
                                     </li>
                             </ul>

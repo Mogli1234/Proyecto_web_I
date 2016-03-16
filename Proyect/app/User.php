@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use DB;
+use Auth;
 class User extends Authenticatable
 {
     /**
@@ -32,4 +33,16 @@ class User extends Authenticatable
     }
     #endregion
 
+    #region Method to charge the id from $usermail
+    public function obtainIdUser($userMail){
+        $user = DB::table('users')->where('email',$userMail)->value('id');
+        return $user;
+    }
+    #endregion
+
+    #region Method to getid from loguser
+    public function getLogId(){
+
+    }
+    #endregion
 }

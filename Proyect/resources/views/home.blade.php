@@ -22,9 +22,9 @@
                         <table id="example" class="table table-striped responsive-utilities jambo_table">
                             <thead>
                             <tr class="headings">
-                                <th>Valor</th>
-                                <th>Tipo de Billete</th>
-                                <th>Acciones</th>
+                                <th>To</th>
+                                <th>Subject</th>
+                                <th>Message</th>
                                 <th class=" no-link last"><span class="nobr">Action</span>
                                 </th>
                             </tr>
