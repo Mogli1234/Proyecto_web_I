@@ -2,7 +2,7 @@
     @section('content')
         <form  class="form-horizontal" role="form" method="POST" action="/E-mails">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <h1>Mail Form</h1>
+            <h1>Mail create</h1>
             @if(session('status'))
                 <div class="alert alert-success">
                     {{ session('status') }}
@@ -10,7 +10,9 @@
             @endif
             @if($errors->any())
                 <div class="alert alert-danger">
-                   {{$errors->first()}}
+                   @foreach($errors->all() as $error)
+                        <li>{{$error}}</li>
+                   @endforeach
                 </div>
             @endif
             <div>

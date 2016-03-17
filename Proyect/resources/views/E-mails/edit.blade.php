@@ -4,6 +4,7 @@
             <input type="hidden" name="_method" value="PUT">
             <input type="hidden" name="count_id" value="{{$edited_mail[0]->id}}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <h1>Mail Editor</h1>
             @if(session('status'))
                 <div class="alert alert-success">
                     {{ session('status') }}
@@ -11,10 +12,11 @@
             @endif
             @if($errors->any())
                 <div class="alert alert-danger">
-                    {{$errors->first()}}
+                    @foreach($errors->all() as $error)
+                        <li>{{$error}}</li>
+                    @endforeach
                 </div>
             @endif
-            <span class="section">Mail Editor</span>
             <div>
                 <label>To:</label>
                 <select name="to_user" class="form-control" id="sel1">
