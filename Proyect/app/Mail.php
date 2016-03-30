@@ -50,6 +50,23 @@ class Mail extends Model
     }
     #endregion
 
+    #region Method to send the email
+    public function sendVerificationEmail($data,$confirmation_code){
+
+        try{
+            $to_view = array('confirmation_code' => $confirmation_code);
+            $sending = email::send('emails.confirm',$to_view,function($message)use($data){
+                $message->from($data['email'],'Web Mail Directive')->to($data['email'])
+                    ->subject('Your Reminder');
+            });
+
+        }catch (Exception $e){
+            $sending = $e->getMessage();
+        }
+        return $sending;
+    }
+    #endregion
+
     #region Method to delete Mails
     public function deleteMAil($id){
         $record_detele = new mail_user();
@@ -157,6 +174,18 @@ class Mail extends Model
             ->select('mails.id','mails.to','mails.subject','mails.message','users.email')
             ->get();
         return $sendMails;
+    }
+    #endregion
+
+    #region Method to validate the user verification
+    public function validateEmail($confirmationCode){
+        $user = DB::table('users')->where('confirmed_code',$confirmationCode)->get();
+        if($user != null){
+            $user = DB::table('users')->where('confirmed_code',$confirmationCode)->update([
+                'confirm'=>true
+            ]);
+            return $user;
+        }
     }
     #endregion
 }

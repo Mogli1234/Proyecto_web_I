@@ -12,7 +12,7 @@ class CreateUserMailTable extends Migration
      */
     public function up()
     {
-        Schema::create('mail_user',function(Blueprint $table){
+        Schema::create('mails_users',function(Blueprint $table){
                 $table->increments('id');
                 $table->integer('mail_id');
                 $table->integer('log_user_id');
@@ -32,6 +32,6 @@ class CreateUserMailTable extends Migration
      */
     public function down()
     {
-        Schema::drop('mail_user');
+        Schema::drop('mails_users');
     }
 }

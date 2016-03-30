@@ -8,8 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
-use Mail as email;
-use Flash;
+use App\Mail as mails;
 class AuthController extends Controller
 {
     /*
@@ -32,7 +31,7 @@ class AuthController extends Controller
      */
     protected $redirectTo = '/home';
     protected $redirectpath = '/login';
-
+    protected $mails;
     /**
      * Create a new authentication controller instance.
      *
@@ -41,6 +40,7 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+        $this->mails = new mails();
     }
 
     /**
@@ -67,17 +67,14 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         $confirmation_code = str_random(30);
+        $this->mails->sendVerificationEmail($data,$confirmation_code);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'confirmed_code'=> $confirmation_code
         ]);
-        /*email::send('emails.confirm',$confirmation_code,function($message){
-            $message->to(Input::get('email'), Input::get('username'))
-                ->subject('Verify your email address');
-        });
-        Flash::message('Thanks for signing up! Please check your email.');*/
+
     }
 
     public function register(Request $request){
@@ -92,5 +89,7 @@ class AuthController extends Controller
         $this->create($request->all());
         return redirect('/login');
     }
+
+    
 
 }

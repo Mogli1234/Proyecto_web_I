@@ -37,10 +37,12 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/Envoys','EnvoyController@index');
     Route::get('/Envoys/{id}','EnvoyController@show');
 });
+Route::get('register/confirm/{confirmation_code}',function($confirmation_code,App\Mail $mails){
+    if($mails->validateEmail($confirmation_code)){
+        return redirect('/login');
+    }
+});
 
-Route::get('register/confirm/{confirmationCode}', [
-    'as' => 'confirmation_path',
-    'uses' => 'RegistrationController@confirm'
-]);
-
-
+Route::get('/errors',function(){
+    return view('errors.404');
+});

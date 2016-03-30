@@ -7,11 +7,10 @@
 <h2>Verify Your Email Address</h2>
 
 <div>
-    Thanks for creating an account with the verification demo app.
+    Thanks for creating an account.
     Please follow the link below to verify your email address
-    {{ URL::to('register/confirm/' . $confirmation_code) }}.<br/>
+    <a href="{{ URL::to('register/confirm/' . $confirmation_code) }}">Check the follow link</a><br/>
 
 </div>
-
 </body>
 </html>

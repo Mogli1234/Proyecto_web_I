@@ -126,4 +126,15 @@ class MailController extends Controller
         }
     }
     #endregion
+
+    #region Method to redirecto to login for the verification mail
+    public function redirecLoginVerification($confirmationCode){
+        $mail = new mail();
+        dd($mail->validateEmail($confirmationCode));
+        die;
+        if($mail->validateEmail($confirmationCode)){
+            return redirect('/login');
+        }
+    }
+    #endregion
 }
