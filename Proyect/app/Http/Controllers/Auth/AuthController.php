@@ -8,7 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
-
+use Mail as email;
+use Flash;
 class AuthController extends Controller
 {
     /*
@@ -71,8 +72,12 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'confirmed_code'=> $confirmation_code
-
         ]);
+        /*email::send('emails.confirm',$confirmation_code,function($message){
+            $message->to(Input::get('email'), Input::get('username'))
+                ->subject('Verify your email address');
+        });
+        Flash::message('Thanks for signing up! Please check your email.');*/
     }
 
     public function register(Request $request){

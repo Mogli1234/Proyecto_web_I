@@ -38,7 +38,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/Envoys/{id}','EnvoyController@show');
 });
 
-Route::get('register/verify/{confirmationCode}', [
+Route::get('register/confirm/{confirmationCode}', [
     'as' => 'confirmation_path',
     'uses' => 'RegistrationController@confirm'
 ]);
