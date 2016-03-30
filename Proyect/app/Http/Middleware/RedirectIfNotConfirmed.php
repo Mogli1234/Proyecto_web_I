@@ -16,7 +16,7 @@ class RedirectIfNotConfirmed
     public function handle($request, Closure $next)
     {
         if($request->user()->confirm==false){
-            return redirect('errors');
+            return redirect('/errors');
         }
         return $next($request);
     }

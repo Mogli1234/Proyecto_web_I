@@ -40,6 +40,8 @@ Route::group(['middleware' => 'web'], function () {
 Route::get('register/confirm/{confirmation_code}',function($confirmation_code,App\Mail $mails){
     if($mails->validateEmail($confirmation_code)){
         return redirect('/login');
+    }else{
+        return redirect('/errors');
     }
 });
 
