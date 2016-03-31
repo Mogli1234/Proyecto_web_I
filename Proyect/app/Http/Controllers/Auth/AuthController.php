@@ -85,9 +85,8 @@ class AuthController extends Controller
                 $request, $validator
             );
         }
-
         $this->create($request->all());
-        return redirect('/login');
+        return redirect('/confirm');
     }
 
     

@@ -46,3 +46,7 @@ Route::get('register/confirm/{confirmation_code}',function($confirmation_code,Ap
 Route::get('/errors',function(){
     return view('errors.404');
 });
+
+Route::get('/confirm',function(){
+    return view('errors.503');
+});
