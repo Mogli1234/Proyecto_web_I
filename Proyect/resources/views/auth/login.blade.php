@@ -41,6 +41,11 @@
                 <div id="login" class="animate form">
                     <section class="login_content">
                         <form method="POST" action="/login">
+                            @if(session('status'))
+                                <div class="alert alert-success">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <h1>Login Form</h1>
                             <div>

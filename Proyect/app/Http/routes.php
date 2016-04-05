@@ -39,10 +39,14 @@ Route::group(['middleware' => 'web'], function () {
 });
 Route::get('register/confirm/{confirmation_code}',function($confirmation_code,App\Mail $mails){
     if($mails->validateEmail($confirmation_code)){
-        return redirect('/login');
+        return redirect('/login')->with('status','You have successfully verified your account');
     }
 });
 
 Route::get('/errors',function(){
     return view('errors.404');
+});
+
+Route::get('/confirm',function(){
+    return view('errors.503');
 });

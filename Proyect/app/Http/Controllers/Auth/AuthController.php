@@ -85,11 +85,18 @@ class AuthController extends Controller
                 $request, $validator
             );
         }
-
         $this->create($request->all());
-        return redirect('/login');
+        return redirect('/confirm');
     }
 
-    
+    public function getCredentials(Request $request)
+    {
+        $credentials = [
+            'email'=>$request->email,
+            'password'=>$request->password,
+            'confirm'=>1
+        ];
+        return $credentials;
+    }
 
 }

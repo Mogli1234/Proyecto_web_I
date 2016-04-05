@@ -30,6 +30,23 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @if($sendsMails==null)
+                                <tr>You dont have ouput mails</tr>
+                            @endif
+                            @foreach ($sendsMails as $key)
+                                <tr>
+                                    <td>{{$key->to}}</td>
+                                    <td>{{$key->subject}}</td>
+                                    <td>{{$key->message}}</td>
+                                    <td><form action="/Output/{{$key->id}}" class="pull-right" role="form" method="POST">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="submit" value="" class="glyphicon glyphicon-trash">
+                                        </form>
+                                        <a href='/Output/{{$key->id}}/edit'><span class="glyphicon glyphicon-pencil"></span></a>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

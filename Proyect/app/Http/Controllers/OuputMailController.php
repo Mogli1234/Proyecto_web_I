@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Mail as mail;
 use App\User as User;
 use Auth;
+use App\Http\Requests\MailRequest;
 class OuputMailController extends Controller
 {
     /**
@@ -21,27 +22,6 @@ class OuputMailController extends Controller
         $sendMails = new mail();
         $sendMails = $sendMails->showSendMails(Auth::user()->id);
         return view('sendMails.index')->with('sendsMails',$sendMails);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -77,18 +57,14 @@ class OuputMailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MailRequest $request, $id)
     {
-        try{
             $new_mail = new mail();
             $users = new User();
             $users = $users->showUsersName();
             if($new_mail->editSpecificMail($request->all(),$id)){
                 return redirect('/Output')->with(['status'=>'Congratulations your maill has been updated!','users'=>$users]);
             }
-        }catch (Exception $e){
-            return back()->with(['errors'=>$e->getMessage(),'users'=>$users]);
-        }
     }
 
     /**
