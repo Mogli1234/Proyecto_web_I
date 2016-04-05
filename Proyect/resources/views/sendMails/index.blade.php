@@ -30,6 +30,9 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @if($sendsMails==null)
+                                <tr>You dont have ouput mails</tr>
+                            @endif
                             @foreach ($sendsMails as $key)
                                 <tr>
                                     <td>{{$key->to}}</td>

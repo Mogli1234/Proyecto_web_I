@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
-
+use App\Mail as mail;
+use Auth;
 class HomeController extends Controller
 {
     /**
@@ -24,6 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $sendMails = new mail();
+        $sendMails = $sendMails->showSendMails(Auth::user()->id);
+        return view('home')->with('sendsMails',$sendMails);;
     }
 }
