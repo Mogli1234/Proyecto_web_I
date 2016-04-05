@@ -182,7 +182,8 @@ class Mail extends Model
         $user = DB::table('users')->where('confirmed_code',$confirmationCode)->get();
         if($user != null){
             $user = DB::table('users')->where('confirmed_code',$confirmationCode)->update([
-                'confirm'=>true
+                'confirm'=>true,
+                'confirmed_code'=>null
             ]);
             return $user;
         }

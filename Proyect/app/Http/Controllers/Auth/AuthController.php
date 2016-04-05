@@ -89,6 +89,14 @@ class AuthController extends Controller
         return redirect('/confirm');
     }
 
-    
+    public function getCredentials(Request $request)
+    {
+        $credentials = [
+            'email'=>$request->email,
+            'password'=>$request->password,
+            'confirm'=>1
+        ];
+        return $credentials;
+    }
 
 }

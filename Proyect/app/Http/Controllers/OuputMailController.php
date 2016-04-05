@@ -59,7 +59,6 @@ class OuputMailController extends Controller
      */
     public function update(MailRequest $request, $id)
     {
-
             $new_mail = new mail();
             $users = new User();
             $users = $users->showUsersName();
